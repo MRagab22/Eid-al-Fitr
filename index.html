@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دعوة عيد الفطر</title>
+  <!-- Font Awesome for adding icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    :root {
+      --primary-color: #005f73;
+      --secondary-color: #0a9396;
+      --accent-color: #94d2bd;
+      /* Light blue gradient for the background */
+      --bg-gradient-start: #a1c4fd;
+      --bg-gradient-end: #c2e9fb;
+      --font-family: 'Cairo', sans-serif;
+    }
+    
+    /* Background movement effect */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    body {
+      font-family: var(--font-family);
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      background-size: 200% 200%;
+      animation: gradientShift 10s ease infinite;
+      overflow-x: hidden;
+      direction: rtl;
+      transition: background 0.5s;
+      position: relative;
+    }
+    
+    /* Particle background using canvas */
+    #particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      pointer-events: none;
+    }
+    
+    /* Star background */
+    #starField {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -2;
+    }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+    
+    /* Remove the background definition for the crescent */
+    
+    header, main, footer {
+      text-align: center;
+      padding: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    header {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      animation: fadeInDown 1s;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    footer {
+      font-size: 1rem;
+      color: #444;
+      margin-top: 30px;
+      padding-bottom: 10px;
+      animation: fadeInUp 1s;
+    }
+    
+    .input-container {
+      margin: 20px auto;
+      max-width: 600px;
+      background: #fff;
+      border: 3px solid var(--secondary-color);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      padding: 25px 15px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .input-container::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--accent-color), transparent 70%);
+      opacity: 0.2;
+      animation: rotateBg 8s linear infinite;
+    }
+    
+    @keyframes rotateBg {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .input-container h2 {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .input-container input[type="text"],
+    .input-container input[type="file"] {
+      width: 80%;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+      text-align: center;
+      margin-bottom: 20px;
+      transition: transform 0.3s, border-color 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .input-container input[type="text"]:focus,
+    .input-container input[type="file"]:focus {
+      transform: scale(1.05);
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    
+    .input-container .optional {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
+    .input-container button {
+      padding: 12px 20px;
+      font-size: 1rem;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .input-container button:hover {
+      background: var(--secondary-color);
+      transform: scale(1.07);
+    }
+    
+    /* Bounce effect on click */
+    .input-container button:active {
+      animation: bounce 0.5s;
+    }
+    @keyframes bounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .invite-container {
+      display: none;
+      margin: 20px auto;
+      max-width: 500px;
+      background: #fff;
+      border: 3px dashed var(--secondary-color);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      padding: 25px 15px;
+      position: relative;
+      overflow: hidden;
+      transform-origin: top center;
+      transform: scale(1);
+    }
+    
+    .invite-container h1 {
+      color: var(--primary-color);
+      font-size: 2.2rem;
+      margin: 20px 0;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .invite-container p {
+      font-size: 1.2rem;
+      color: #333;
+      line-height: 1.5;
+      margin: 20px 0;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      position: relative;
+      border: 2px dotted var(--accent-color);
+      z-index: 1;
+    }
+    
+    .invite-container img.user-img {
+      max-width: 120px;
+      border-radius: 50%;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      border: 3px solid var(--accent-color);
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .invite-container img.user-img:hover {
+      transform: scale(1.2);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    
+    .decorative {
+      position: absolute;
+      opacity: 0.2;
+      z-index: 0;
+    }
+    
+    .decorative.circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      top: -30px;
+      right: -30px;
+      animation: float 6s ease-in-out infinite alternate;
+    }
+    
+    .decorative.square {
+      width: 80px;
+      height: 80px;
+      background: var(--secondary-color);
+      bottom: -20px;
+      left: -20px;
+      transform: rotate(45deg);
+      animation: float 8s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(20px); }
+    }
+    
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -20px;
+      opacity: 0.8;
+      z-index: 9999;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    
+    .balloon {
+      position: fixed;
+      bottom: -100px;
+      width: 40px;
+      height: 55px;
+      border-radius: 20px 20px 50% 50%;
+      opacity: 0.9;
+      z-index: 9998;
+      /* Speed up the balloon movement */
+      animation: floatUp 4s ease-in forwards;
+    }
+    @keyframes floatUp {
+      0% { bottom: -100px; transform: translateX(0) rotate(0deg); }
+      100% { bottom: 110vh; transform: translateX(50px) rotate(360deg); opacity: 0.3; }
+    }
+    
+    @media (max-width: 768px) {
+      .input-container, .invite-container {
+        margin: 10px;
+        padding: 20px;
+        max-width: 95%;
+      }
+      .input-container h2 {
+        font-size: 1.5rem;
+      }
+      .input-container input {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+      .input-container button {
+        font-size: 0.9rem;
+        padding: 10px 15px;
+      }
+      .invite-container h1 {
+        font-size: 1.8rem;
+      }
+      .invite-container p {
+        font-size: 1rem;
+        padding: 15px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .invite-container {
+        padding: 15px 10px;
+        transform: scale(0.95);
+      }
+      .input-container h2 {
+        font-size: 1.3rem;
+      }
+      .invite-container h1 {
+        font-size: 1.6rem;
+      }
+      .invite-container p {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particle background using canvas -->
+  <canvas id="particleCanvas"></canvas>
+  <!-- Animated stars -->
+  <div id="starField"></div>
+  
+  <header class="animate__animated animate__fadeInDown">
+    <i class="fas fa-moon"></i> دعوة عيد الفطر التفاعلية <i class="fas fa-star"></i>
+  </header>
+  <main>
+    <div class="input-container animate__animated animate__fadeInDown" id="inputContainer">
+      <h2>أدخل اسمك وحمّل صورتك للحصول على دعوتك</h2>
+      <input type="text" id="nameInput" placeholder="اكتب اسمك هنا">
+      <input type="file" id="imageInput" accept="image/*">
+      <span class="optional">(اختياري)</span>
+      <br>
+      <button onclick="createInvite()">إنشاء الدعوة</button>
+    </div>
+  
+    <div class="invite-container animate__animated animate__fadeInUp" id="inviteContainer">
+      <!-- Celebration icon -->
+      <i class="fas fa-gift" style="font-size: 3rem; color: var(--accent-color); position: relative; z-index: 1;"></i>
+      <div class="decorative circle"></div>
+      <div class="decorative square"></div>
+      
+      <h1 id="inviteTitle" style="position: relative; z-index: 1;">🎉 عيد فطر سعيد! 🎉</h1>
+      <p id="inviteMessage" style="position: relative; z-index: 1;"></p>
+    </div>
+  </main>
+  <footer class="animate__animated animate__fadeInUp">
+    &copy; <span id="year"></span> جميع الحقوق محفوظة | 
+    <a href="http://www.linkedin.com/in/mohamed-ali-73a51024b" target="_blank" style="color: var(--primary-color); text-decoration: none;">M.Ali</a>
+  </footer>
+  
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    
+    // Function to generate stars in the background
+    function generateStars() {
+      const starField = document.getElementById('starField');
+      const numStars = 100;
+      for (let i = 0; i < numStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = Math.random() * 100 + '%';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.animationDuration = (1 + Math.random() * 2) + 's';
+        starField.appendChild(star);
+      }
+    }
+    generateStars();
+    
+    function createInvite() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (name === "") {
+        alert("يرجى إدخال اسمك!");
+        return;
+      }
+      
+      const imageInput = document.getElementById("imageInput");
+      if (imageInput.files && imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const message = `
+            <span style="color: var(--primary-color); font-size: 1.4em;">${name} العزيز/ة 🌙</span><br><br>
+            <img src="${e.target.result}" alt="صورتك" class="user-img"><br><br>
+            كل عام وأنت بألف خير!<br>
+            نتمنى لك عيداً مليئاً بالفرح والبركة<br>
+            وكل عام وأنتم بخير 🎁<br><br>
+            <small style="color: #666;">${new Date().getFullYear()} ©</small>
+          `;
+          document.getElementById("inviteMessage").innerHTML = message;
+          document.getElementById("inputContainer").style.display = "none";
+          document.getElementById("inviteContainer").style.display = "block";
+          // Hide the footer on the second page
+          document.querySelector("footer").style.display = "none";
+          startConfetti();
+          startBalloons();
+        }
+        reader.readAsDataURL(imageInput.files[0]);
+      } else {
+        const message = `
+          <span style="color: var(--primary-color); font-size: 1.4em;">${name} العزيز/ة 🌙</span><br><br>
+          كل عام وأنت بألف خير!<br>
+          نتمنى لك عيداً مليئاً بالفرح والبركة<br>
+          وكل عام وأنتم بخير 🎁<br><br>
+          <small style="color: #666;">${new Date().getFullYear()} ©</small>
+        `;
+        document.getElementById("inviteMessage").innerHTML = message;
+        document.getElementById("inputContainer").style.display = "none";
+        document.getElementById("inviteContainer").style.display = "block";
+        // Hide the footer on the second page
+        document.querySelector("footer").style.display = "none";
+        startConfetti();
+        startBalloons();
+      }
+    }
+    
+    function startConfetti() {
+      const confettiColors = ['#FFD700', '#FF4500', '#32CD32', '#1E90FF', '#FF69B4'];
+      const numConfetti = 30;
+      for (let i = 0; i < numConfetti; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => { confetti.remove(); }, 5000);
+      }
+    }
+    
+    function startBalloons() {
+      const balloonColors = ['#FF69B4', '#FFD700', '#87CEEB', '#FF4500', '#32CD32'];
+      const numBalloons = 15;
+      for (let i = 0; i < numBalloons; i++) {
+        const balloon = document.createElement('div');
+        balloon.classList.add('balloon');
+        balloon.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+        balloon.style.left = Math.random() * window.innerWidth + 'px';
+        /* Speed up the balloon movement */
+        balloon.style.animationDuration = (3 + Math.random() * 2) + 's';
+        document.body.appendChild(balloon);
+        setTimeout(() => { balloon.remove(); }, 8000);
+      }
+    }
+    
+    // Particle movement code in the background using canvas with connection lines between particles
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
+    
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+    
+    let particles = [];
+    const numParticles = 100; // Increase the number of particles for a more enhanced effect
+    
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 3 + 1,
+          dx: (Math.random() - 0.5) * 0.5,
+          dy: (Math.random() - 0.5) * 0.5,
+        });
+      }
+    }
+    initParticles();
+    
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw connection lines between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = "rgba(255,255,255," + (1 - dist / 100) + ")";
+            ctx.stroke();
+          }
+        }
+      }
+      // Update particle positions
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.3)";
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx = -p.dx;
+        if (p.y < 0 || p.y > canvas.height) p.dy = -p.dy;
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+  </script>
+</body>
+</html>
