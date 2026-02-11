@@ -81,7 +81,7 @@ Open `index.html` in your browser - no build required!
 **[MRagab22](https://github.com/MRagab22)**
 
 *Developed and Tested by M.Ali*  
-All Rights Reserved © 2025
+All Rights Reserved © 2026
 
 ---
 
