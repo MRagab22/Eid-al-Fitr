@@ -1,19 +1,35 @@
 # 🌙 Eid al-Fitr Celebration Website
 
 ## 🎉 Overview
-A simple and elegant web project that celebrates the spirit of **Eid al-Fitr** through greetings, festive colors, and interactive elements. This static website is designed to share the joy of Eid with an attractive layout and festive theme, featuring smooth animations, visual effects, and a responsive design that works perfectly on both desktop and mobile devices.
+A beautiful web application for creating personalized **Eid al-Fitr** greeting cards with festive animations and elegant design. Works perfectly on both desktop and mobile devices.
 
 **🔗 Live Demo:** [Visit the website here](https://mragab22.github.io/Eid-al-Fitr/)
 
 ---
 
 ## ✨ Features
-* Personalized Eid greeting cards with user's name
-* Optional image upload for customized greetings
-* Smooth animations and visual effects
-* Festive color theme celebrating Eid al-Fitr
-* Fully responsive design (mobile & desktop)
-* Easy sharing with friends and family
+
+### 🎨 **Personalization**
+- **Two Modes**: Personal card or gift card for loved ones
+- **Photo Upload**: Add custom photos with drag & drop support
+- **Custom Names**: Personalize with sender and recipient names
+- **Premium Fonts**: Beautiful Arabic typography
+
+### 🎭 **Visual Effects**
+- Confetti celebration animation 🎊
+- Festive balloons (2 balloons optimized for printing)
+- Twinkling stars and floating crescents 🌙
+- Smooth typewriter text animation
+
+### 💾 **Download & Share**
+- High-quality PNG export (3x resolution)
+- Print-optimized layout
+- Easy social media sharing
+
+### 📱 **Responsive Design**
+- Mobile-friendly interface
+- Touch-optimized controls
+- Works on all modern browsers
 
 ---
 
@@ -22,46 +38,60 @@ A simple and elegant web project that celebrates the spirit of **Eid al-Fitr** t
 | Technology | Purpose |
 |------------|---------|
 | **HTML5** | Structure and content |
-| **CSS3** | Styling, layout, and animations |
-| **JavaScript** | Interactivity and dynamic content |
+| **CSS3** | Styling and animations |
+| **JavaScript** | Interactivity |
+| **Canvas Confetti** | Celebration effects |
+| **html2canvas** | Image export |
+| **Google Fonts** | Arabic typography |
 
 ---
 
 ## 🚀 How to Use
 
-### 1. Access the website
-Open the link in your browser: [https://mragab22.github.io/Eid-al-Fitr/](https://mragab22.github.io/Eid-al-Fitr/)
-
-### 2. Enter your name
-Type your name in the text box (for example: *Mohamed Ali*) — it will appear inside your personalized Eid greeting card.
-
-### 3. Choose an image (Optional)
-Select an image from your device to include in the design.
-
-### 4. Generate your greeting card
-Click the **Show Greeting** button to display your final greeting card with your name and image in a colorful, animated Eid theme.
-
-### 5. Share with friends
-Take a **screenshot** or share the link with your friends so they can create their own personalized greeting cards too!
+1. **Choose Card Type**: Personal or gift card
+2. **Add Photo**: Upload image (optional)
+3. **Enter Names**: Add recipient and sender names
+4. **Generate Card**: Click create button
+5. **Download**: Save as PNG and share!
 
 ---
 
 ## 📥 Local Setup
 
-### 1. Clone the repository
 ```bash
 git clone https://github.com/MRagab22/Eid-al-Fitr.git
 cd Eid-al-Fitr
 ```
 
-### 2. Open the project
-Simply open `index.html` in your browser to view the website locally.
+Open `index.html` in your browser - no build required!
 
 ---
 
-## 👨‍💻 Author
+## 🔄 Recent Updates
+
+- ✅ Optimized balloon count (2 balloons for clean print)
+- ✅ Enhanced download quality (3x resolution)
+- ✅ Improved mobile responsiveness
+- ✅ Better touch interactions
+
+---
+
+## 👨‍💻 Developer
+
 **[MRagab22](https://github.com/MRagab22)**
 
+*Developed and Tested by M.Ali*  
+All Rights Reserved © 2025
+
 ---
 
-> 🌙 *Celebrate Eid al-Fitr with personalized greeting cards and festive animations!*
+## 📄 License
+
+Open source - available for personal and educational use.
+
+---
+
+> 🌙 **كل عام وأنتم بخير - تقبل الله منا ومنكم صالح الأعمال**  
+> *Celebrate Eid al-Fitr with personalized greeting cards!*
+
+**⭐ Star this project on GitHub if you like it!**
