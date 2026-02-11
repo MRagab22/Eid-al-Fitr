@@ -1,550 +1,726 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>دعوة عيد الفطر</title>
-  <!-- Font Awesome for adding icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <style>
-    :root {
-      --primary-color: #005f73;
-      --secondary-color: #0a9396;
-      --accent-color: #94d2bd;
-      /* Light blue gradient for the background */
-      --bg-gradient-start: #a1c4fd;
-      --bg-gradient-end: #c2e9fb;
-      --font-family: 'Cairo', sans-serif;
-    }
+    <!-- Basic Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تهنئة عيد الفطر</title>
     
-    /* Background movement effect */
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@400;500;700;800&family=Scheherazade+New:wght@400;700&family=Lateef:wght@400;700&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    body {
-      font-family: var(--font-family);
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-      background-size: 200% 200%;
-      animation: gradientShift 10s ease infinite;
-      overflow-x: hidden;
-      direction: rtl;
-      transition: background 0.5s;
-      position: relative;
-    }
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
-    /* Particle background using canvas */
-    #particleCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -3;
-      pointer-events: none;
-    }
-    
-    /* Star background */
-    #starField {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -2;
-    }
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: #fff;
-      border-radius: 50%;
-      opacity: 0;
-      animation: twinkle 2s infinite ease-in-out;
-    }
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(1); }
-    }
-    
-    /* Remove the background definition for the crescent */
-    
-    header, main, footer {
-      text-align: center;
-      padding: 10px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    header {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: var(--primary-color);
-      margin-bottom: 20px;
-      animation: fadeInDown 1s;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    }
-    
-    footer {
-      font-size: 1rem;
-      color: #444;
-      margin-top: 30px;
-      padding-bottom: 10px;
-      animation: fadeInUp 1s;
-    }
-    
-    .input-container {
-      margin: 20px auto;
-      max-width: 600px;
-      background: #fff;
-      border: 3px solid var(--secondary-color);
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      padding: 25px 15px;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .input-container::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, var(--accent-color), transparent 70%);
-      opacity: 0.2;
-      animation: rotateBg 8s linear infinite;
-    }
-    
-    @keyframes rotateBg {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    
-    .input-container h2 {
-      color: var(--primary-color);
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .input-container input[type="text"],
-    .input-container input[type="file"] {
-      width: 80%;
-      padding: 12px;
-      font-size: 1rem;
-      border-radius: 10px;
-      border: 2px solid #ccc;
-      text-align: center;
-      margin-bottom: 20px;
-      transition: transform 0.3s, border-color 0.3s;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .input-container input[type="text"]:focus,
-    .input-container input[type="file"]:focus {
-      transform: scale(1.05);
-      outline: none;
-      border-color: var(--primary-color);
-    }
-    
-    .input-container .optional {
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 20px;
-      display: block;
-    }
-    
-    .input-container button {
-      padding: 12px 20px;
-      font-size: 1rem;
-      background: var(--primary-color);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .input-container button:hover {
-      background: var(--secondary-color);
-      transform: scale(1.07);
-    }
-    
-    /* Bounce effect on click */
-    .input-container button:active {
-      animation: bounce 0.5s;
-    }
-    @keyframes bounce {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-    
-    .invite-container {
-      display: none;
-      margin: 20px auto;
-      max-width: 500px;
-      background: #fff;
-      border: 3px dashed var(--secondary-color);
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-      padding: 25px 15px;
-      position: relative;
-      overflow: hidden;
-      transform-origin: top center;
-      transform: scale(1);
-    }
-    
-    .invite-container h1 {
-      color: var(--primary-color);
-      font-size: 2.2rem;
-      margin: 20px 0;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 1;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    .invite-container p {
-      font-size: 1.2rem;
-      color: #333;
-      line-height: 1.5;
-      margin: 20px 0;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 15px;
-      position: relative;
-      border: 2px dotted var(--accent-color);
-      z-index: 1;
-    }
-    
-    .invite-container img.user-img {
-      max-width: 120px;
-      border-radius: 50%;
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-      border: 3px solid var(--accent-color);
-      margin-bottom: 15px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .invite-container img.user-img:hover {
-      transform: scale(1.2);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-    
-    .decorative {
-      position: absolute;
-      opacity: 0.2;
-      z-index: 0;
-    }
-    
-    .decorative.circle {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: var(--accent-color);
-      top: -30px;
-      right: -30px;
-      animation: float 6s ease-in-out infinite alternate;
-    }
-    
-    .decorative.square {
-      width: 80px;
-      height: 80px;
-      background: var(--secondary-color);
-      bottom: -20px;
-      left: -20px;
-      transform: rotate(45deg);
-      animation: float 8s ease-in-out infinite alternate-reverse;
-    }
-    @keyframes float {
-      from { transform: translateY(0); }
-      to { transform: translateY(20px); }
-    }
-    
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      top: -20px;
-      opacity: 0.8;
-      z-index: 9999;
-      animation: fall linear forwards;
-    }
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-    }
-    
-    .balloon {
-      position: fixed;
-      bottom: -100px;
-      width: 40px;
-      height: 55px;
-      border-radius: 20px 20px 50% 50%;
-      opacity: 0.9;
-      z-index: 9998;
-      /* Speed up the balloon movement */
-      animation: floatUp 4s ease-in forwards;
-    }
-    @keyframes floatUp {
-      0% { bottom: -100px; transform: translateX(0) rotate(0deg); }
-      100% { bottom: 110vh; transform: translateX(50px) rotate(360deg); opacity: 0.3; }
-    }
-    
-    @media (max-width: 768px) {
-      .input-container, .invite-container {
-        margin: 10px;
-        padding: 20px;
-        max-width: 95%;
-      }
-      .input-container h2 {
-        font-size: 1.5rem;
-      }
-      .input-container input {
-        font-size: 0.9rem;
-        padding: 10px;
-      }
-      .input-container button {
-        font-size: 0.9rem;
-        padding: 10px 15px;
-      }
-      .invite-container h1 {
-        font-size: 1.8rem;
-      }
-      .invite-container p {
-        font-size: 1rem;
-        padding: 15px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .invite-container {
-        padding: 15px 10px;
-        transform: scale(0.95);
-      }
-      .input-container h2 {
-        font-size: 1.3rem;
-      }
-      .invite-container h1 {
-        font-size: 1.6rem;
-      }
-      .invite-container p {
-        font-size: 0.95rem;
-      }
-    }
-  </style>
+    <style>
+        /* Eid Theme Configuration */
+        :root {
+            --primary-dark: #006d77; 
+            --primary: #83c5be; 
+            --accent-light: #edf6f9;
+            --accent-main: #a8dadc;
+            --accent-dark: #457b9d;
+            --bg-gradient: linear-gradient(135deg, #a8dadc 0%, #c7ecee 25%, #ddf3f5 50%, #e8f4f8 75%, #f1faee 100%);
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --text-main: #1d3557;
+            --shadow-main: 0 20px 60px rgba(0, 109, 119, 0.3);
+            --border-main: 2px solid #83c5be;
+        }
+
+        /* Global Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif; 
+            background: var(--bg-gradient);
+            color: var(--text-main); 
+            line-height: 1.6; 
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Premium Background Pattern */
+        .background-overlay {
+            position: fixed; inset: 0; z-index: -2; opacity: 0.1;
+            background-image: url('https://www.transparenttextures.com/patterns/exclusive-paper.png');
+        }
+        
+        .ornament-bg {
+            position: fixed; inset: 0; z-index: -1; opacity: 0.15;
+            background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
+            background-repeat: repeat;
+        }
+
+        /* Animated Decorative Elements */
+        .effects-container { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+        
+        .star {
+            position: absolute;
+            background: #ffd93d;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ffd93d, 0 0 25px rgba(255, 217, 61, 0.5);
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Symmetrical Crescents */
+        .crescent {
+            position: fixed;
+            top: 15%;
+            font-size: 6rem;
+            color: #ffd93d;
+            opacity: 0.2;
+            filter: drop-shadow(0 0 25px #ffd93d);
+            z-index: -1;
+            animation: float 6s infinite ease-in-out;
+        }
+        .crescent.left { left: 15vw; }
+        .crescent.right { right: 15vw; transform: scaleX(-1); animation-delay: -3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Main Wrapper - responsive without scroll */
+        .main-wrapper {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+            max-width: 100vw;
+            padding: 20px;
+            position: relative; 
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        /* Premium Card Design - responsive optimized */
+        .premium-card {
+            background: var(--card-bg);
+            border: var(--border-main);
+            border-radius: 2.5rem;
+            box-shadow: var(--shadow-main);
+            width: 100%; 
+            max-width: 550px;
+            max-height: 95vh;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            margin: auto;
+        }
+        
+        /* Hide scrollbar but keep functionality */
+        .premium-card::-webkit-scrollbar {
+            width: 6px;
+        }
+        .premium-card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .premium-card::-webkit-scrollbar-thumb {
+            background: var(--accent-main);
+            border-radius: 10px;
+        }
+        
+        /* Card Corner Decorations */
+        .premium-card::before {
+            content: '✨'; position: absolute; top: 15px; left: 15px; font-size: 1.5rem; opacity: 0.5;
+        }
+        .premium-card::after {
+            content: '✨'; position: absolute; bottom: 15px; right: 15px; font-size: 1.5rem; opacity: 0.5;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography - responsive */
+        h1 { 
+            font-family: 'Reem Kufi', 'Scheherazade New', serif; 
+            color: var(--primary-dark); 
+            font-size: clamp(1.8rem, 5vw, 3rem); 
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        .subtitle { 
+            color: var(--accent-dark); 
+            font-weight: 800; 
+            letter-spacing: 1px; 
+            margin-bottom: 1.5rem; 
+            text-transform: uppercase; 
+            font-size: clamp(0.7rem, 2vw, 0.85rem); 
+        }
+
+        /* Form Styling - responsive */
+        .input-group { margin-bottom: 1rem; text-align: right; }
+        label { 
+            display: block; 
+            font-weight: 700; 
+            color: var(--primary-dark); 
+            margin-bottom: 0.4rem; 
+            font-size: clamp(0.9rem, 2.2vw, 1rem); 
+        }
+        input[type="text"] { 
+            width: 100%; 
+            padding: clamp(0.8rem, 2vw, 1rem); 
+            border-radius: 1rem; 
+            border: 2px solid #e0e0e0; 
+            font-family: 'Tajawal', sans-serif; 
+            font-size: clamp(0.9rem, 2.2vw, 1rem); 
+            transition: all 0.3s; 
+            text-align: right; 
+        }
+        input[type="text"]:focus { 
+            outline: none; 
+            border-color: var(--primary); 
+            box-shadow: 0 0 15px rgba(131, 197, 190, 0.3); 
+        }
+
+        /* Upload Zone */
+        .upload-zone {
+            border: 3px dashed var(--accent-main);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 1.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(135deg, rgba(168, 218, 220, 0.05), rgba(237, 246, 249, 0.1));
+        }
+        .upload-zone:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(168, 218, 220, 0.1), rgba(237, 246, 249, 0.2));
+            transform: scale(1.02);
+        }
+
+        /* Buttons - responsive */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            border: none;
+            padding: clamp(1rem, 3vw, 1.2rem) clamp(1.5rem, 4vw, 2rem);
+            border-radius: 1.2rem;
+            font-weight: 800;
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 109, 119, 0.3);
+            font-family: 'Tajawal', sans-serif;
+        }
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 109, 119, 0.4);
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--primary-dark);
+            border: 3px solid var(--primary);
+            padding: clamp(1rem, 3vw, 1.2rem) clamp(1.5rem, 4vw, 2rem);
+            border-radius: 1.2rem;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            font-family: 'Tajawal', sans-serif;
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Back Button */
+        #back-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: clamp(35px, 8vw, 45px);
+            height: clamp(35px, 8vw, 45px);
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 109, 119, 0.3);
+            z-index: 10;
+        }
+        #back-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Display Styles */
+        .display-photo {
+            width: clamp(80px, 18vw, 110px);
+            height: clamp(80px, 18vw, 110px);
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 109, 119, 0.2);
+        }
+        .display-title {
+            font-family: 'Amiri', serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--primary-dark);
+            margin: 1rem 0;
+            font-weight: 700;
+        }
+        .gold-divider {
+            width: clamp(60px, 15vw, 100px);
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+        .display-msg {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            line-height: 2;
+            color: var(--text-main);
+            margin: 1.5rem 0;
+        }
+
+        /* Hidden Class */
+        .hidden { display: none !important; }
+
+        /* Developer Credit */
+        #developer-credit {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            text-align: center;
+            transition: opacity 0.3s;
+        }
+        #developer-credit p {
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            color: var(--primary-dark);
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            margin: 0.3rem 0;
+        }
+
+        /* Enhanced Balloon Styles */
+        .balloon {
+            position: fixed;
+            bottom: -150px;
+            z-index: 9999;
+            animation: floatUp linear forwards;
+        }
+        
+        .balloon-body {
+            width: 50px;
+            height: 65px;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .balloon-body::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 10px solid inherit;
+        }
+        
+        .balloon-string {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 80px;
+            background: rgba(0,0,0,0.2);
+        }
+        
+        @keyframes floatUp {
+            0% { 
+                bottom: -150px; 
+                transform: translateX(0) rotate(0deg); 
+                opacity: 1;
+            }
+            50% {
+                transform: translateX(30px) rotate(10deg);
+            }
+            100% { 
+                bottom: 120vh; 
+                transform: translateX(-20px) rotate(-5deg); 
+                opacity: 0;
+            }
+        }
+
+        /* Islamic Decorations */
+        .big-balloon {
+            position: fixed;
+            font-size: 4rem;
+            z-index: 1;
+            animation: floatGentle 4s ease-in-out infinite;
+            transform-origin: center;
+            opacity: 0.8;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+        }
+        
+        @keyframes floatGentle {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+        }
+        
+        .islamic-star {
+            position: fixed;
+            font-size: 1.5rem;
+            color: #FFD700;
+            opacity: 0.6;
+            z-index: 1;
+            animation: rotate360 20s linear infinite;
+        }
+        
+        @keyframes rotate360 {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Card Decoration Balloons */
+        .card-balloon {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatGentle 3s ease-in-out infinite;
+            z-index: 5;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2));
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body { overflow-y: auto; overflow-x: hidden; }
+            .main-wrapper { height: auto; min-height: 100vh; padding: 10px; }
+            .premium-card { 
+                max-width: 95%; 
+                margin: 10px auto;
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .premium-card { 
+                border-radius: 2rem;
+                padding: 1.2rem 0.8rem;
+            }
+            #back-btn { top: 0.7rem; right: 0.7rem; }
+        }
+    </style>
 </head>
 <body>
-  <!-- Particle background using canvas -->
-  <canvas id="particleCanvas"></canvas>
-  <!-- Animated stars -->
-  <div id="starField"></div>
-  
-  <header class="animate__animated animate__fadeInDown">
-    <i class="fas fa-moon"></i> دعوة عيد الفطر التفاعلية <i class="fas fa-star"></i>
-  </header>
-  <main>
-    <div class="input-container animate__animated animate__fadeInDown" id="inputContainer">
-      <h2>أدخل اسمك وحمّل صورتك للحصول على دعوتك</h2>
-      <input type="text" id="nameInput" placeholder="اكتب اسمك هنا">
-      <input type="file" id="imageInput" accept="image/*">
-      <span class="optional">(اختياري)</span>
-      <br>
-      <button onclick="createInvite()">إنشاء الدعوة</button>
+    <!-- Background Elements -->
+    <div class="background-overlay"></div>
+    <div class="ornament-bg"></div>
+    
+    <!-- Decorative Crescents -->
+    <div class="crescent left">🌙</div>
+    <div class="crescent right">🌙</div>
+
+    <!-- Islamic Decorations -->
+    <div class="big-balloon" style="top: 5%; left: 8%;">🎈</div>
+    <div class="big-balloon" style="top: 5%; right: 8%; animation-delay: 0.5s;">🎈</div>
+    <div class="islamic-star" style="top: 15%; left: 20%;">✨</div>
+    <div class="islamic-star" style="top: 20%; right: 25%; animation-delay: 1s;">⭐</div>
+    <div class="islamic-star" style="bottom: 15%; left: 15%; animation-delay: 2s;">✨</div>
+    <div class="islamic-star" style="bottom: 20%; right: 20%; animation-delay: 1.5s;">⭐</div>
+
+    <!-- Effects Container for Stars -->
+    <div class="effects-container" id="stars-layer"></div>
+
+    <div class="main-wrapper">
+        <!-- Step 1: Choice -->
+        <div id="step-choice" class="premium-card">
+            <h1>🎉 عيد فطر مبارك 🎉</h1>
+            <p class="subtitle">Eid Mubarak Greeting Card</p>
+            <p style="font-size: clamp(0.95rem, 2.5vw, 1.1rem); color: #666; margin: 1.5rem 0; line-height: 1.8;">
+                شارك فرحة العيد مع أحبابك<br>
+                ببطاقة تهنئة مميزة ومخصصة 🌟
+            </p>
+            
+            <button class="btn-gold" onclick="showForm('self')" style="margin-bottom: 1rem;">
+                <span style="font-size: clamp(1.5rem, 4vw, 1.8rem); display: block; margin-bottom: 0.5rem;">🙋</span>
+                <span style="font-size: clamp(0.95rem, 2.5vw, 1.1rem); font-weight: 700;">بطاقة شخصية لي</span>
+            </button>
+            
+            <button class="btn-outline" onclick="showForm('other')" style="padding: clamp(1rem, 3vw, 1.5rem); margin-top: clamp(1rem, 2.5vw, 1.5rem);">
+                <span style="font-size: clamp(1.5rem, 4vw, 1.8rem); display: block; margin-bottom: 0.5rem;">💝</span>
+                <span style="font-size: clamp(0.95rem, 2.5vw, 1.1rem); font-weight: 700;">بطاقة لشخص عزيز</span>
+            </button>
+        </div>
+
+        <!-- Step 2: Form -->
+        <div id="step-form" class="premium-card hidden">
+            <button id="back-btn" onclick="resetApp()">&#x2794;</button>
+            <h1>صمم بطاقتك</h1>
+            <p class="subtitle">Customize Your Eid Card</p>
+            
+            <form id="main-form">
+                <div id="group-recipient" class="input-group">
+                    <label>اسم المرسل إليه</label>
+                    <input type="text" id="input-recipient" placeholder="أدخل الاسم هنا..." required>
+                </div>
+                <div class="input-group">
+                    <label id="label-sender">اسمك (اختياري)</label>
+                    <input type="text" id="input-sender" placeholder="اكتب اسمك هنا إذا أردت...">
+                </div>
+                
+                <div class="upload-zone" onclick="document.getElementById('file-input').click()">
+                    <div id="upload-text">
+                        <p style="font-size: clamp(2rem, 5vw, 2.5rem);">📸</p>
+                        <p style="font-weight: 800; color: var(--primary-dark); font-size: clamp(0.9rem, 2.5vw, 1rem);">إضافة صورة شخصية</p>
+                        <p style="font-size: clamp(0.75rem, 2vw, 0.85rem); color: #777;">(اختياري - لمسة خاصة ومميزة)</p>
+                    </div>
+                    <img id="img-preview" class="hidden" style="width: clamp(70px, 15vw, 90px); height: clamp(70px, 15vw, 90px); border-radius: 15px; margin: 0 auto; border: 2px solid var(--primary);">
+                    <input type="file" id="file-input" hidden accept="image/*">
+                </div>
+                
+                <button type="submit" class="btn-gold">✨ إنشاء بطاقة العيد</button>
+            </form>
+        </div>
+
+        <!-- Step 3: Result -->
+        <div id="step-result" class="premium-card hidden" style="max-width: 600px;">
+            <div id="capture-area" style="background: white; padding: clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 2.5rem); border-radius: 2rem; position: relative; border: 1px solid #eee;">
+                <!-- Decorative Corners -->
+                <div style="position: absolute; top: 15px; left: 15px; width: clamp(35px, 8vw, 50px); height: clamp(35px, 8vw, 50px); border-top: 3px solid var(--primary); border-left: 3px solid var(--primary); border-radius: 5px 0 0 0;"></div>
+                <div style="position: absolute; top: 15px; right: 15px; width: clamp(35px, 8vw, 50px); height: clamp(35px, 8vw, 50px); border-top: 3px solid var(--primary); border-right: 3px solid var(--primary); border-radius: 0 5px 0 0;"></div>
+                <div style="position: absolute; bottom: 15px; left: 15px; width: clamp(35px, 8vw, 50px); height: clamp(35px, 8vw, 50px); border-bottom: 3px solid var(--primary); border-left: 3px solid var(--primary); border-radius: 0 0 0 5px;"></div>
+                <div style="position: absolute; bottom: 15px; right: 15px; width: clamp(35px, 8vw, 50px); height: clamp(35px, 8vw, 50px); border-bottom: 3px solid var(--primary); border-right: 3px solid var(--primary); border-radius: 0 0 5px 0;"></div>
+
+                <!-- Decorative Balloons on Card -->
+                <div class="card-balloon" style="top: 10px; left: 50%; transform: translateX(-50%);">🎈</div>
+                <div class="card-balloon" style="top: 10px; left: 20%; animation-delay: 0.5s;">🎈</div>
+                <div class="card-balloon" style="top: 10px; right: 20%; animation-delay: 1s;">🎈</div>
+                <div class="card-balloon" style="bottom: 10px; left: 15%; animation-delay: 0.7s;">🎈</div>
+                <div class="card-balloon" style="bottom: 10px; right: 15%; animation-delay: 1.2s;">🎈</div>
+
+                <img id="res-photo" class="display-photo hidden">
+                <h2 id="res-title" class="display-title"></h2>
+                <div class="gold-divider"></div>
+                <p id="res-msg" class="display-msg"></p>
+                <p style="font-family: 'Amiri', serif; font-size: clamp(1.3rem, 4vw, 2rem); color: var(--accent-dark); font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,0.05);">🌙 تقبل الله طاعتكم 🌙</p>
+            </div>
+            
+            <div style="margin-top: clamp(1.5rem, 3vw, 2.5rem); display: flex; flex-direction: column; gap: 1rem;">
+                <button class="btn-gold" onclick="downloadImage()">📥 تحميل البطاقة</button>
+                <button class="btn-outline" onclick="resetApp()">إنشاء بطاقة جديدة</button>
+            </div>
+        </div>
     </div>
-  
-    <div class="invite-container animate__animated animate__fadeInUp" id="inviteContainer">
-      <!-- Celebration icon -->
-      <i class="fas fa-gift" style="font-size: 3rem; color: var(--accent-color); position: relative; z-index: 1;"></i>
-      <div class="decorative circle"></div>
-      <div class="decorative square"></div>
-      
-      <h1 id="inviteTitle" style="position: relative; z-index: 1;">🎉 عيد فطر سعيد! 🎉</h1>
-      <p id="inviteMessage" style="position: relative; z-index: 1;"></p>
+    
+    <!-- Fixed Developer Credit -->
+    <div id="developer-credit">
+        <p style="font-weight: 800; color: var(--primary-dark);">Developed and Tested by M.Ali</p>
+        <p style="font-weight: 500; opacity: 0.9;">All Rights Reserved © <span id="year"></span></p>
     </div>
-  </main>
-  <footer class="animate__animated animate__fadeInUp">
-    &copy; <span id="year"></span> جميع الحقوق محفوظة | 
-   <a href="https://www.linkedin.com/in/mohamed-ali-ragab-73a51024b" target="_blank" style="color: var(--primary-color); text-decoration: none;">M.Ali</a>
-  </footer>
-  
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-    
-    // Function to generate stars in the background
-    function generateStars() {
-      const starField = document.getElementById('starField');
-      const numStars = 100;
-      for (let i = 0; i < numStars; i++) {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        star.style.top = Math.random() * 100 + '%';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.animationDuration = (1 + Math.random() * 2) + 's';
-        starField.appendChild(star);
-      }
-    }
-    generateStars();
-    
-    function createInvite() {
-      const name = document.getElementById("nameInput").value.trim();
-      if (name === "") {
-        alert("يرجى إدخال اسمك!");
-        return;
-      }
-      
-      const imageInput = document.getElementById("imageInput");
-      if (imageInput.files && imageInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const message = `
-            <span style="color: var(--primary-color); font-size: 1.4em;">${name} العزيز/ة 🌙</span><br><br>
-            <img src="${e.target.result}" alt="صورتك" class="user-img"><br><br>
-            كل عام وأنت بألف خير!<br>
-            نتمنى لك عيداً مليئاً بالفرح والبركة<br>
-            وكل عام وأنتم بخير 🎁<br><br>
-            <small style="color: #666;">${new Date().getFullYear()} ©</small>
-          `;
-          document.getElementById("inviteMessage").innerHTML = message;
-          document.getElementById("inputContainer").style.display = "none";
-          document.getElementById("inviteContainer").style.display = "block";
-          // Hide the footer on the second page
-          document.querySelector("footer").style.display = "none";
-          startConfetti();
-          startBalloons();
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        const state = {
+            mode: 'other',
+            photo: null,
+            name: ''
+        };
+
+        // Navigation
+        function showForm(mode) {
+            state.mode = mode;
+            document.getElementById('step-choice').classList.add('hidden');
+            document.getElementById('step-form').classList.remove('hidden');
+            
+            // Hide developer credit when not on main page
+            document.getElementById('developer-credit').style.opacity = '0';
+            
+            // Scroll to top to show the form from the beginning
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            const recipientGroup = document.getElementById('group-recipient');
+            const senderLabel = document.getElementById('label-sender');
+            const senderInput = document.getElementById('input-sender');
+            
+            if(mode === 'self') {
+                recipientGroup.classList.add('hidden');
+                senderLabel.innerText = "اسمك الكريم";
+                senderInput.placeholder = "أدخل اسمك هنا...";
+                senderInput.required = true;
+                document.getElementById('input-recipient').required = false;
+            } else {
+                recipientGroup.classList.remove('hidden');
+                senderLabel.innerText = "اسمك (اختياري)";
+                senderInput.placeholder = "اكتب اسمك هنا إذا أردت...";
+                senderInput.required = false;
+                document.getElementById('input-recipient').required = true;
+            }
         }
-        reader.readAsDataURL(imageInput.files[0]);
-      } else {
-        const message = `
-          <span style="color: var(--primary-color); font-size: 1.4em;">${name} العزيز/ة 🌙</span><br><br>
-          كل عام وأنت بألف خير!<br>
-          نتمنى لك عيداً مليئاً بالفرح والبركة<br>
-          وكل عام وأنتم بخير 🎁<br><br>
-          <small style="color: #666;">${new Date().getFullYear()} ©</small>
-        `;
-        document.getElementById("inviteMessage").innerHTML = message;
-        document.getElementById("inputContainer").style.display = "none";
-        document.getElementById("inviteContainer").style.display = "block";
-        // Hide the footer on the second page
-        document.querySelector("footer").style.display = "none";
-        startConfetti();
-        startBalloons();
-      }
-    }
-    
-    function startConfetti() {
-      const confettiColors = ['#FFD700', '#FF4500', '#32CD32', '#1E90FF', '#FF69B4'];
-      const numConfetti = 30;
-      for (let i = 0; i < numConfetti; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-        confetti.style.left = Math.random() * window.innerWidth + 'px';
-        confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
-        document.body.appendChild(confetti);
-        setTimeout(() => { confetti.remove(); }, 5000);
-      }
-    }
-    
-    function startBalloons() {
-      const balloonColors = ['#FF69B4', '#FFD700', '#87CEEB', '#FF4500', '#32CD32'];
-      const numBalloons = 15;
-      for (let i = 0; i < numBalloons; i++) {
-        const balloon = document.createElement('div');
-        balloon.classList.add('balloon');
-        balloon.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
-        balloon.style.left = Math.random() * window.innerWidth + 'px';
-        /* Speed up the balloon movement */
-        balloon.style.animationDuration = (3 + Math.random() * 2) + 's';
-        document.body.appendChild(balloon);
-        setTimeout(() => { balloon.remove(); }, 8000);
-      }
-    }
-    
-    // Particle movement code in the background using canvas with connection lines between particles
-    const canvas = document.getElementById("particleCanvas");
-    const ctx = canvas.getContext("2d");
-    
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-    
-    let particles = [];
-    const numParticles = 100; // Increase the number of particles for a more enhanced effect
-    
-    function initParticles() {
-      particles = [];
-      for (let i = 0; i < numParticles; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          radius: Math.random() * 3 + 1,
-          dx: (Math.random() - 0.5) * 0.5,
-          dy: (Math.random() - 0.5) * 0.5,
-        });
-      }
-    }
-    initParticles();
-    
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // Draw connection lines between nearby particles
-      for (let i = 0; i < particles.length; i++) {
-        const p1 = particles[i];
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p1.x - p2.x;
-          const dy = p1.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 100) {
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = "rgba(255,255,255," + (1 - dist / 100) + ")";
-            ctx.stroke();
-          }
+
+        function resetApp() {
+            location.reload();
         }
-      }
-      // Update particle positions
-      for (const p of particles) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.3)";
-        ctx.fill();
-        p.x += p.dx;
-        p.y += p.dy;
-        if (p.x < 0 || p.x > canvas.width) p.dx = -p.dx;
-        if (p.y < 0 || p.y > canvas.height) p.dy = -p.dy;
-      }
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-  </script>
+
+        // Photo Handling
+        document.getElementById('file-input').onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    state.photo = event.target.result;
+                    document.getElementById('img-preview').src = state.photo;
+                    document.getElementById('img-preview').classList.remove('hidden');
+                    document.getElementById('upload-text').classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // Form Submission
+        document.getElementById('main-form').onsubmit = (e) => {
+            e.preventDefault();
+            const sender = document.getElementById('input-sender').value.trim();
+            const recipient = state.mode === 'self' ? sender : document.getElementById('input-recipient').value.trim();
+            
+            // Validation
+            if (!recipient) {
+                alert('من فضلك أدخل الاسم');
+                return;
+            }
+            
+            state.name = recipient;
+            renderGreeting(sender, recipient);
+        };
+
+        function typewriter(el, text, speed, callback) {
+            let i = 0;
+            el.innerHTML = "";
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    el.innerHTML += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                    if(callback) callback();
+                }
+            }, speed);
+        }
+
+        function renderGreeting(sender, recipient) {
+            document.getElementById('step-form').classList.add('hidden');
+            document.getElementById('step-result').classList.remove('hidden');
+            
+            // Hide developer credit when showing result
+            document.getElementById('developer-credit').style.opacity = '0';
+            
+            // Scroll to top to show the card from the beginning
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            const title = `عيد فطر سعيد يا ${recipient}!`;
+            let msg = `كل عام وأنت بخير، أعاده الله عليك وعلى أحبابك بالخير واليمن والبركات. تقبل الله منا ومنكم صالح الأعمال.`;
+            if(state.mode === 'other' && sender) msg = `من ${sender}: ` + msg;
+
+            if(state.photo) {
+                document.getElementById('res-photo').src = state.photo;
+                document.getElementById('res-photo').classList.remove('hidden');
+            }
+
+            // Confetti Celebration
+            const duration = 4 * 1000;
+            const end = Date.now() + duration;
+            (function frame() {
+                confetti({ particleCount: 4, angle: 60, spread: 60, origin: { x: 0 }, colors: ['#83c5be', '#ffffff', '#a8dadc', '#ffd93d'] });
+                confetti({ particleCount: 4, angle: 120, spread: 60, origin: { x: 1 }, colors: ['#83c5be', '#ffffff', '#a8dadc', '#ffd93d'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+
+            // Start Balloons Animation
+            startBalloons();
+
+            typewriter(document.getElementById('res-title'), title, 60, () => {
+                typewriter(document.getElementById('res-msg'), msg, 30);
+            });
+        }
+
+        function startBalloons() {
+            const balloonColors = ['#FF69B4', '#FFD700', '#87CEEB', '#FF4500', '#32CD32', '#9370DB', '#FF1493', '#00CED1'];
+            const numBalloons = 20;
+            
+            for (let i = 0; i < numBalloons; i++) {
+                setTimeout(() => {
+                    const balloon = document.createElement('div');
+                    balloon.classList.add('balloon');
+                    balloon.style.left = Math.random() * window.innerWidth + 'px';
+                    balloon.style.animationDuration = (6 + Math.random() * 3) + 's';
+                    
+                    const balloonBody = document.createElement('div');
+                    balloonBody.classList.add('balloon-body');
+                    const color = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+                    balloonBody.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), ${color})`;
+                    balloonBody.style.borderColor = color;
+                    
+                    const balloonString = document.createElement('div');
+                    balloonString.classList.add('balloon-string');
+                    
+                    balloon.appendChild(balloonBody);
+                    balloon.appendChild(balloonString);
+                    document.body.appendChild(balloon);
+                    
+                    setTimeout(() => { balloon.remove(); }, 10000);
+                }, i * 200);
+            }
+        }
+
+        function downloadImage() {
+            const area = document.getElementById('capture-area');
+            html2canvas(area, { scale: 3, backgroundColor: '#ffffff' }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `Eid-Card-${state.name}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        // Background Stars
+        const layer = document.getElementById('stars-layer');
+        for (let i = 0; i < 60; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            layer.appendChild(star);
+        }
+    </script>
 </body>
 </html>
-
-
